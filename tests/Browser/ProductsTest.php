@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use App\Keeper\Category\Repositories\CategoryDbRepository;
 use App\Keeper\Product\Repositories\ProductDbRepository;
-use App\Keeper\User\Repositories\UserDbRepository;
 use App\Keeper\Wishlist\Repositories\WishlistDbRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Components\CreateAndVerifyUser;
 use Tests\Browser\Pages\ProductsPage;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,6 +18,7 @@ class ProductsTest extends DuskTestCase
 {
     use DatabaseMigrations;
     use WithFaker;
+    use CreateAndVerifyUser;
 
     private $user;
 
@@ -29,7 +30,7 @@ class ProductsTest extends DuskTestCase
         parent::setUp();
 
         $this->browse(function (Browser $browser) {
-            $this->user = (new UserDbRepository())->create($this->faker->email, $this->faker->password);
+            $this->user = $this->createVerifiedUser($this->faker->email, $this->faker->password);
             $browser->loginAs($this->user);
         });
     }

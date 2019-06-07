@@ -22,11 +22,11 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['auth', 'web']], function () {
+Route::group(['middleware' => ['auth', 'web', 'verified']], function () {
     Route::namespace('\App\Keeper\Category\Http\Controllers')->group(function () {
         Route::get('categories', 'CategoryController@index')->name('categories');
     });
