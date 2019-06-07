@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Keeper\User\Repositories\UserRepositoryInterface;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 
@@ -59,7 +60,7 @@ class CreateUserCommand extends Command
             return;
         }
 
-        $this->userRepository->create($email, $password);
+        event(new Registered($user = $this->userRepository->create($email, $password)));
         $this->info(sprintf('User %s created successfully', $email));
     }
 }

@@ -15,10 +15,20 @@ class UserDbRepository implements UserRepositoryInterface
      */
     public function create(string $email, string $password): User
     {
-        return User::create([
+        $user = new User([
             'name' => '',
             'email' => $email,
             'password' => Hash::make($password),
         ]);
+        $user->save();
+        return $user;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findByEmail(string $email): User
+    {
+        return User::where('email', $email)->firstOrFail();
     }
 }

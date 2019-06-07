@@ -13,4 +13,10 @@ interface UserRepositoryInterface
      * @return User
      */
     public function create(string $email, string $password) : User;
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function findByEmail(string $email) : User;
 }
