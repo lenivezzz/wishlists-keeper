@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Keeper\User\Notifications\ResetPasswordQueued;
 use App\Keeper\User\Notifications\VerifyEmailQueued;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -45,5 +47,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification() : void
     {
         $this->notify(new VerifyEmailQueued());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function sendPasswordResetNotification($token) : void
+    {
+        $this->notify(new ResetPasswordQueued($token));
     }
 }
