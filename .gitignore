@@ -12,3 +12,4 @@ Homestead.json
 /public/js/
 /.env.dusk.local
 /public/mix-manifest.json
+/wishlistskeeper-worker.conf
