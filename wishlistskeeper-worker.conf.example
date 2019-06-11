@@ -1,0 +1,13 @@
+;
+[program:wishlistskeeper-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /path/to/app/artisan queue:work --sleep=2 --tries=3
+autostart=true
+autorestart=true
+user=user
+numprocs=4
+redirect_stderr=true
+stdout_logfile=/path/to/app/storage/logs/%(program_name)s.log
+stdout_logfile_maxbytes=5MB
+stdout_logfile_backups=5
+stdout_capture_maxbytes=1MB
