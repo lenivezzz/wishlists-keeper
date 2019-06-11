@@ -78,7 +78,7 @@ class WishlistDbRepository implements WishlistRepositoryInterface
      */
     public function createDefaultForUser(int $userId): Wishlist
     {
-        return Wishlist::with('products')->create([
+        return Wishlist::create([
             'title' => 'Default',
             'user_id' => $userId,
             'is_default' => 1,

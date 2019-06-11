@@ -22,7 +22,7 @@ class CreateWishlistTest extends DuskTestCase
      */
     public function testExample() : void
     {
-        $user = $this->createVerifiedUser($this->faker->email, $this->faker->password);
+        $user = $this->createVerifiedUserWithDefaultList($this->faker->email, $this->faker->password);
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                 ->visit(new CreateWishlistPage())

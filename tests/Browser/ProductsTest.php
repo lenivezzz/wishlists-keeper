@@ -30,7 +30,7 @@ class ProductsTest extends DuskTestCase
         parent::setUp();
 
         $this->browse(function (Browser $browser) {
-            $this->user = $this->createVerifiedUser($this->faker->email, $this->faker->password);
+            $this->user = $this->createVerifiedUserWithDefaultList($this->faker->email, $this->faker->password);
             $browser->loginAs($this->user);
         });
     }
@@ -43,8 +43,6 @@ class ProductsTest extends DuskTestCase
      */
     public function testPagination(): void
     {
-        (new WishlistDbRepository())->createDefaultForUser((int) $this->user->id);
-
         $this->browse(function (Browser $browser) {
             $category = (new CategoryDbRepository())->create(
                 $this->faker->unique()->word,
@@ -77,8 +75,6 @@ class ProductsTest extends DuskTestCase
      */
     public function testCardContent(): void
     {
-        (new WishlistDbRepository())->createDefaultForUser((int) $this->user->id);
-
         $this->browse(function (Browser $browser) {
             $browser->visit(new ProductsPage())->assertSee('No items here.');
 
@@ -107,7 +103,8 @@ class ProductsTest extends DuskTestCase
     public function testNoDefaultWishlist(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit((new ProductsPage())->url())->assertPathIs('/wishlists/createdefault');
+            $browser->loginAs($this->createVerifiedUser($this->faker->email, $this->faker->password))
+                ->visit((new ProductsPage())->url())->assertPathIs('/wishlists/createdefault');
         });
     }
 
@@ -116,7 +113,7 @@ class ProductsTest extends DuskTestCase
      */
     public function testAddProductToWishlist(): void
     {
-        $defaultWishlist = (new WishlistDbRepository())->createDefaultForUser((int) $this->user->id);
+        $defaultWishlist = (new WishlistDbRepository())->findDefaultForUser((int) $this->user->id);
 
         $category = (new CategoryDbRepository())->create(
             $this->faker->unique()->word,

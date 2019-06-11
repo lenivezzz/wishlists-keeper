@@ -27,7 +27,7 @@ class WishlistsTest extends DuskTestCase
     {
         parent::setUp();
 
-        $this->user = $this->createVerifiedUser($this->faker->email, $this->faker->password);
+        $this->user = $this->createVerifiedUserWithDefaultList($this->faker->email, $this->faker->password);
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user);
         });
