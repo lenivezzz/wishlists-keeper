@@ -32,10 +32,12 @@ Route::group(['middleware' => ['auth', 'web', 'verified']], function () {
     });
 
     Route::namespace('\App\Keeper\Wishlist\Http\Controllers')->group(function () {
-        Route::get('wishlists', 'WishlistController@index')->name('wishlists');
-        Route::get('wishlists/create', 'WishlistController@create')->name('wishlists/create');
-        Route::post('wishlists/store', 'WishlistController@store')->name('wishlists/store');
-        Route::post('wishlists/addproduct', 'WishlistController@addproduct')->name('wishlists/addproduct');
+        Route::group(['middleware' => ['ensurehasdefaultwishlist']], function () {
+            Route::get('wishlists', 'WishlistController@index')->name('wishlists');
+            Route::get('wishlists/create', 'WishlistController@create')->name('wishlists/create');
+            Route::post('wishlists/store', 'WishlistController@store')->name('wishlists/store');
+            Route::post('wishlists/addproduct', 'WishlistController@addproduct')->name('wishlists/addproduct');
+        });
 
         Route::group(['middleware' => ['ensurewishlistisnotdefault']], function () {
             Route::post('wishlists/delete', 'WishlistController@delete')->name('wishlists/delete');

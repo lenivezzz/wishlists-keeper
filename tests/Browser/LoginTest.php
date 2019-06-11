@@ -26,7 +26,7 @@ class LoginTest extends DuskTestCase
             $email = $this->faker->email;
             $pwd = $this->faker->unique()->password;
             $incorrectPwd = $this->faker->unique()->password;
-            $this->createVerifiedUser($email, $pwd);
+            $this->createVerifiedUserWithDefaultList($email, $pwd);
             $browser->visit(new LoginPage())
                 ->press('@login')
                 ->type('@email', $email)
