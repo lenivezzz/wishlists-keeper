@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Keeper\User\Notifications\VerifyEmailQueued;
 use App\Keeper\User\Repositories\UserRepositoryInterface;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -77,7 +76,7 @@ class CreateUserCommandTest extends TestCase
         Notification::assertSentTo(
             resolve(UserRepositoryInterface::class)->findByEmail($email),
             VerifyEmailQueued::class,
-            function (VerifyEmail $notification) {
+            function (VerifyEmailQueued $notification) {
                 return true;
             }
         );
