@@ -11,3 +11,4 @@ Homestead.json
 /public/css/
 /public/js/
 /.env.dusk.local
+/public/mix-manifest.json
