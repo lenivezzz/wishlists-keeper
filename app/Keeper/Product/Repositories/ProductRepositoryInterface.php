@@ -6,7 +6,6 @@ namespace App\Keeper\Product\Repositories;
 use App\Keeper\Product\Product;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-
 interface ProductRepositoryInterface
 {
     /**

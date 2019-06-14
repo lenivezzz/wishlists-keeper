@@ -1,0 +1,25 @@
+language: php
+dist: trusty
+
+php:
+  - 7.2
+
+addons:
+  chrome: stable
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install sqlite
+  - cp .env.testing .env
+
+install:
+  - composer install --no-interaction
+  - npm install
+  - npm run dev
+
+before_script:
+  - php artisan key:generate
+
+script:
+  - ./vendor/bin/phpcs
+  - ./vendor/bin/phpunit
