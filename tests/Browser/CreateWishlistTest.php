@@ -36,6 +36,4 @@ class CreateWishlistTest extends DuskTestCase
                 ->assertPathIs('/wishlists');
         });
     }
-
-
 }

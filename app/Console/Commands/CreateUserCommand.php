@@ -55,7 +55,7 @@ class CreateUserCommand extends Command
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:3'],
         ]);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             $this->error($validator->errors()->first());
             return;
         }

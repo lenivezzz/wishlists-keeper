@@ -74,7 +74,7 @@ class WishlistController extends Controller
     public function delete(Request $request): RedirectResponse
     {
         $this->wishlistRepository->deleteForUser((int) $request->post('id'), (int) $request->user()->id);
-        return redirect()->route('wishlists')->with('success','Item deleted successfully!');
+        return redirect()->route('wishlists')->with('success', 'Item deleted successfully!');
     }
 
     /**
@@ -103,7 +103,7 @@ class WishlistController extends Controller
             (int) $request->user()->id
         );
 
-        return redirect()->route('wishlists')->with('success','Item updated successfully!');
+        return redirect()->route('wishlists')->with('success', 'Item updated successfully!');
     }
 
     /**
@@ -140,4 +140,5 @@ class WishlistController extends Controller
         );
 
         return response()->json();
-    }}
+    }
+}
