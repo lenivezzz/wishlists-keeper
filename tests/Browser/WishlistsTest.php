@@ -64,7 +64,7 @@ class WishlistsTest extends DuskTestCase
         $defaultWishlist = (new WishlistDbRepository())->createDefaultForUser((int) $this->user->id);
         $customWishlist = (new WishlistDbRepository())->createForUser($this->faker->name, (int) $this->user->id);
 
-        $this->browse(function (Browser $browser) use ($defaultWishlist, $customWishlist){
+        $this->browse(function (Browser $browser) use ($defaultWishlist, $customWishlist) {
             $browser->visit(new WishlistsPage())
                 ->assertVisible('#form-options' . $customWishlist->id)
                 ->assertMissing('#form-options' . $defaultWishlist->id);
